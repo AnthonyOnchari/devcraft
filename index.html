@@ -478,6 +478,65 @@ nav {
 #navMenu.show {
   display: block;
 }
+header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    padding: 0 20px;
+    color: white;
+  }
+
+  .menu-toggle {
+    font-size: 2rem;
+    cursor: pointer;
+    display: block;
+    z-index: 999;
+    color: white;
+  }
+
+  #navMenu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #navMenu a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 8px 0;
+  }
+
+  #navMenu.show {
+    display: flex;
+  }
+
+  /* Optional: hide menu toggle on large screens */
+  @media (min-width: 768px) {
+    .menu-toggle {
+      display: none;
+    }
+    #navMenu {
+      display: flex !important;
+      position: static;
+      background: transparent;
+      flex-direction: row;
+      gap: 20px;
+    }
+    #navMenu a {
+      padding: 0;
+    }
     }
   </style>
 </head>
@@ -517,7 +576,6 @@ nav {
         <img src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png" alt="Dev Badge" />
         <div class="type-text" id="devBotText"></div>
       </div>
-      <div class="scroll-down">SCROLL DOWN</div>
     </div>
   </div>
 
