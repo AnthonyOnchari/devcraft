@@ -424,6 +424,54 @@
         bottom: 1rem;
         right: 1rem;
       }
+      /* Style for toggle icon */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+}
+
+/* Mobile nav styles */
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 1rem;
+    border-radius: 8px;
+    z-index: 999;
+  }
+
+  nav.show {
+    display: flex;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0.5rem 0;
+  }
     }
   </style>
 </head>
@@ -436,15 +484,22 @@
     </video>
 
     <header>
-      <h1>DevCraft</h1>
-      <nav>
-        <a href="#">Academy</a>
-        <a href="#">Hosting</a>
-        <a href="Developer Profiles Page/Profiles.html">founders</a>
-        <a href="#">DevCraft ID</a>
-        <a href="#">Hire Devs</a>
-      </nav>
-    </header>
+  <h1>DevCraft</h1>
+
+  <!-- Hamburger Icon -->
+  <div class="menu-toggle" id="menuToggle">
+    ☰
+  </div>
+
+  <!-- Navigation Links -->
+  <nav id="navMenu">
+    <a href="#">Academy</a>
+    <a href="Developer Profiles Page/Profiles.html">founders</a>
+    <a href="#">Hosting</a>
+    <a href="#">DevCraft ID</a>
+    <a href="#">Hire Devs</a>
+  </nav>
+</header>
 
     <div class="hero">
       <div class="hero-content">
@@ -628,6 +683,12 @@
       } else {
         scrollToTopBtn.style.display = 'none';
       }
+       const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('navMenu');
+
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('show');
+  });
     });
   </script>
 </body>
