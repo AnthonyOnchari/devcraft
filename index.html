@@ -472,6 +472,12 @@ nav {
     text-decoration: none;
     margin: 0.5rem 0;
   }
+  #navMenu.hidden {
+  display: none;
+}
+#navMenu.show {
+  display: block;
+}
     }
   </style>
 </head>
@@ -492,7 +498,7 @@ nav {
   </div>
 
   <!-- Navigation Links -->
-  <nav id="navMenu">
+  <nav id="navMenu" class="hidden" >
     <a href="#">Academy</a>
     <a href="Developer Profiles Page/Profiles.html">founders</a>
     <a href="#">Hosting</a>
@@ -620,76 +626,76 @@ nav {
   </div>
 
   <script>
-    const text = "👋 Hello! I'm DevBot. Ask me anything about DevCraft.";
-    let i = 0;
-    function typeEffect() {
-      if (i < text.length) {
-        document.getElementById("devBotText").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeEffect, 50);
-      }
+  const text = "👋 Hello! I'm DevBot. Ask me anything about DevCraft.";
+  let i = 0;
+  function typeEffect() {
+    if (i < text.length) {
+      document.getElementById("devBotText").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeEffect, 50);
     }
-    window.onload = typeEffect;
-    
-    // NEW JAVASCRIPT ADDED BELOW
-    
-    // Animate stats counting
-    function animateValue(id, start, end, duration) {
-      const obj = document.getElementById(id);
-      let startTimestamp = null;
-      const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const value = Math.floor(progress * (end - start) + start);
-        obj.innerHTML = value + "+";
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        }
-      };
-      window.requestAnimationFrame(step);
-    }
-    
-    // Animate stats when they come into view
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateValue("devs-trained", 0, 2500, 2000);
-          animateValue("projects-hosted", 0, 1200, 2000);
-          animateValue("jobs-created", 0, 800, 2000);
-          animateValue("community-members", 0, 5000, 2000);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {threshold: 0.5});
-    
-    document.querySelectorAll('.stat-number').forEach(el => {
-      observer.observe(el);
-    });
-    
-    // Scroll to top button functionality
-    const scrollToTopBtn = document.querySelector('.floating-button:last-child');
-    scrollToTopBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-    
-    // Show/hide scroll to top button based on scroll position
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollToTopBtn.style.display = 'flex';
-      } else {
-        scrollToTopBtn.style.display = 'none';
+  }
+  window.onload = typeEffect;
+
+  // Animate stats counting
+  function animateValue(id, start, end, duration) {
+    const obj = document.getElementById(id);
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const value = Math.floor(progress * (end - start) + start);
+      obj.innerHTML = value + "+";
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
       }
-       const toggle = document.getElementById('menuToggle');
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  // Animate stats when they come into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateValue("devs-trained", 0, 2500, 2000);
+        animateValue("projects-hosted", 0, 1200, 2000);
+        animateValue("jobs-created", 0, 800, 2000);
+        animateValue("community-members", 0, 5000, 2000);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-number').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Scroll to top button functionality
+  const scrollToTopBtn = document.querySelector('.floating-button:last-child');
+  scrollToTopBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Show/hide scroll to top button based on scroll position
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      scrollToTopBtn.style.display = 'flex';
+    } else {
+      scrollToTopBtn.style.display = 'none';
+    }
+  });
+
+  // ✅ Menu toggle functionality
+  const toggle = document.getElementById('menuToggle');
   const nav = document.getElementById('navMenu');
 
   toggle.addEventListener('click', () => {
     nav.classList.toggle('show');
   });
-    });
-  </script>
+</script>
 </body>
 </html>
