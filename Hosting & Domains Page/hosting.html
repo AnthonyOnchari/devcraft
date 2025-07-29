@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevCraft - Premium Hosting & Domain Services</title>
+    <style>
+        :root {
+            --primary: #0A2463;
+            --secondary: #FF6B35;
+            --accent: #06AED5;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --gray: #ADB5BD;
+        }
+
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .cta-button {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #e05a2b;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3a8f 100%);
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .search-domain {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-domain input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-domain button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-domain button:hover {
+            background-color: #e05a2b;
+        }
+
+        .tlds {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tld {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tld:hover {
+            background-color: var(--accent);
+        }
+
+        /* Add these new styles for domain results */
+        .domain-results {
+        max-width: 600px;
+        margin: 1rem auto 0;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: none;
+    }
+
+    .domain-result {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .domain-result:last-child {
+        border-bottom: none;
+    }
+
+    .domain-name {
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 1.1rem;
+    }
+
+    .domain-status {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .domain-available {
+        color: var(--success);
+        font-weight: 600;
+        background-color: rgba(40, 167, 69, 0.1);
+        padding: 0.3rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+
+    .domain-unavailable {
+        color: var(--danger);
+        background-color: rgba(220, 53, 69, 0.1);
+        padding: 0.3rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+
+    .domain-price {
+        font-weight: 600;
+        color: var(--secondary);
+        font-size: 1.1rem;
+    }
+
+    .add-to-cart {
+        background-color: var(--secondary);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+        margin-left: 1rem;
+    }
+
+    .add-to-cart:hover {
+        background-color: #e05a2b;
+        transform: translateY(-1px);
+    }
+
+    .tlds {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .tld {
+        background-color: rgba(10, 36, 99, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: var(--primary);
+        font-weight: 500;
+    }
+
+    .tld:hover {
+        background-color: var(--accent);
+        color: white;
+    }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .loading-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid var(--secondary);
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .features {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            background-color: var(--accent);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .pricing {
+            background-color: #f1f3f5;
+            padding: 5rem 5%;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.3rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg) translate(25%, -50%);
+            transform-origin: center;
+            width: 150px;
+            text-align: center;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: normal;
+        }
+
+        .pricing-features {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .testimonials {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonial-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            display: none;
+        }
+
+        .testimonial.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .testimonial img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--accent);
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .testimonial-role {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active {
+            background-color: var(--secondary);
+            transform: scale(1.2);
+        }
+
+        .faq {
+            background-color: #f1f3f5;
+            padding: 5rem 5%;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .faq-question:hover {
+            background-color: #f8f9fa;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3a8f 100%);
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .search-domain {
+                flex-direction: column;
+            }
+
+            .search-domain input {
+                width: 100%;
+            }
+
+            .search-domain button {
+                padding: 1rem;
+                width: 100%;
+            }
+            /* Cart Icon */
+.cart-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--secondary);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+}
+
+.cart-icon:hover {
+    transform: scale(1.1);
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--accent);
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cart Modal */
+.cart-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: flex-end;
+}
+
+.cart-content {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.close-cart {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cart-items {
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item-name {
+    font-weight: 600;
+}
+
+.cart-item-price {
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.remove-item {
+    color: var(--danger);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.cart-summary {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.cart-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkout-btn, .cart-close {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.checkout-btn {
+    background: var(--secondary);
+    color: white;
+}
+
+.checkout-btn:hover {
+    background: #e05a2b;
+}
+
+.cart-close {
+    background: var(--light);
+    color: var(--dark);
+}
+
+.cart-close:hover {
+    background: var(--gray);
+}
+
+.payment-options {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.payment-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.fa-cc-mpesa {
+    color: #00B300; /* M-Pesa green */
+}
+
+@media (max-width: 500px) {
+    .cart-content {
+        max-width: 100%;
+    }
+}
+        }
+    </style>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Dev<span>Craft</span></div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#faq">FAQ</a>
+                <a href="#" class="cta-button">Client Area</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Premium Hosting & Domain Services in Kenya</h1>
+            <p>Get Kenyan-based hosting with lightning-fast servers, 99.9% uptime, and local support. Perfect for businesses and developers in East Africa.</p>
+            
+            <div class="search-domain">
+                <input type="text" placeholder="Find your perfect domain (example: mybusiness)" id="domain-search">
+                <button id="search-button">
+                    <span id="search-text">Search</span>
+                    <span class="loading-spinner" id="search-spinner" style="display: none;"></span>
+                </button>
+            </div>
+            
+            <div class="loading" id="loading-indicator">
+                <div class="loading-spinner"></div>
+                <span>Checking domain availability...</span>
+            </div>
+            
+            <div class="domain-results" id="domain-results">
+                <!-- Results will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="tlds">
+                <div class="tld" data-tld=".com" data-price="1500">.com KES 1,500/yr</div>
+                <div class="tld" data-tld=".co.ke" data-price="1200">.co.ke KES 1,200/yr</div>
+                <div class="tld" data-tld=".org" data-price="1200">.org KES 1,200/yr</div>
+                <div class="tld" data-tld=".net" data-price="1700">.net KES 1,700/yr</div>
+                <div class="tld" data-tld=".info" data-price="900">.info KES 900/yr</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="section-title">
+            <h2>Kenyan-Friendly Pricing</h2>
+            <p>Affordable plans with local payment options including M-Pesa. All plans come with a 30-day money back guarantee.</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">KES 600<span>/month</span></div>
+                <ul class="pricing-features">
+                    <li>1 Website</li>
+                    <li>10GB SSD Storage</li>
+                    <li>Unmetered Bandwidth</li>
+                    <li>Free SSL Certificate</li>
+                    <li>24/7 Support</li>
+                    <li>Local Kenyan Servers</li>
+                </ul>
+                <button class="cta-button">Get Started</button>
+            </div>
+            
+            <div class="pricing-card popular">
+                <div class="popular-badge">Most Popular</div>
+                <h3>Business</h3>
+                <div class="price">KES 1,200<span>/month</span></div>
+                <ul class="pricing-features">
+                    <li>Unlimited Websites</li>
+                    <li>50GB SSD Storage</li>
+                    <li>Unmetered Bandwidth</li>
+                    <li>Free SSL Certificate</li>
+                    <li>Free .co.ke Domain (1 year)</li>
+                    <li>24/7 Priority Support</li>
+                    <li>Local Kenyan Servers</li>
+                </ul>
+                <button class="cta-button">Get Started</button>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">KES 2,400<span>/month</span></div>
+                <ul class="pricing-features">
+                    <li>Unlimited Websites</li>
+                    <li>100GB SSD Storage</li>
+                    <li>Unmetered Bandwidth</li>
+                    <li>Free SSL Certificate</li>
+                    <li>Free .co.ke Domain (1 year)</li>
+                    <li>Dedicated Resources</li>
+                    <li>24/7 VIP Support</li>
+                    <li>Local Kenyan Servers</li>
+                </ul>
+                <button class="cta-button">Get Started</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="section-title">
+            <h2>What Kenyan Businesses Say</h2>
+            <p>Don't just take our word for it - hear from our satisfied customers across East Africa.</p>
+        </div>
+        
+        <div class="testimonial-slider">
+            <div class="testimonial active">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Wanjiku Mwangi">
+                <p>"DevCraft's local hosting made our e-commerce site 3x faster for Kenyan customers. Their support team even answers during East African business hours!"</p>
+                <div class="testimonial-author">Wanjiku Mwangi</div>
+                <div class="testimonial-role">CEO, Maisha Bazaar</div>
+            </div>
+            
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Omondi">
+                <p>"As a developer in Nairobi, I love that I can pay via M-Pesa and get same-day setup. The Kenyan servers make a huge difference in load times."</p>
+                <div class="testimonial-author">James Omondi</div>
+                <div class="testimonial-role">CTO, TechSavvy Africa</div>
+            </div>
+            
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Amina Hassan">
+                <p>"Migrating from international hosting to DevCraft cut our loading times from 5s to under 1s for our Tanzanian customers. Worth every shilling!"</p>
+                <div class="testimonial-author">Amina Hassan</div>
+                <div class="testimonial-role">Marketing Director, Swahili Tours</div>
+            </div>
+            
+            <div class="slider-controls">
+                <div class="slider-dot active" data-index="0"></div>
+                <div class="slider-dot" data-index="1"></div>
+                <div class="slider-dot" data-index="2"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to common questions about our hosting services in Kenya.</p>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you accept M-Pesa payments?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! We accept all local payment methods including M-Pesa, Airtel Money, and bank transfers. You'll receive payment instructions immediately after signup.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Where are your servers located?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We have primary servers in Nairobi with backup locations in Mombasa. All our infrastructure is hosted within Kenya for optimal local performance.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is your uptime guarantee for Kenyan websites?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We guarantee 99.9% uptime for all our hosting plans. Our local infrastructure means we can resolve most issues within minutes during business hours.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you offer .co.ke domain registration?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! We're accredited .co.ke registrars and can register your Kenyan domain instantly. All Business and Enterprise plans include a free .co.ke domain for the first year.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    What support channels do you offer?
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We provide 24/7 support via phone (+254 700 123456), WhatsApp, email, and live chat with local technicians who understand the Kenyan market.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Launch Your Kenyan Website?</h2>
+            <p>Join hundreds of Kenyan businesses enjoying faster local hosting. Get started today with M-Pesa payments.</p>
+            <button class="cta-button">Get Started Now</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>DevCraft Kenya</h3>
+                <p>Local hosting and domain services for Kenyan businesses. Proudly serving East Africa since 2020.</p>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</p>
+                    <p><i class="fas fa-phone"></i> +254 700 123456</p>
+                    <p><i class="fas fa-envelope"></i> hello@devcraft.co.ke</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Kenyan Web Hosting</a></li>
+                    <li><a href="#">.co.ke Domain Registration</a></li>
+                    <li><a href="#">Business Email Hosting</a></li>
+                    <li><a href="#">SSL Certificates</a></li>
+                    <li><a href="#">Website Migration</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Affiliate Program</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Knowledge Base</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Server Status</a></li>
+                    <li><a href="#">Submit Ticket</a></li>
+                    <li><a href="#">WhatsApp Support</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 DevCraft Hosting Kenya. All rights reserved.
+        </div>
+    </footer>
+</body>
+<script>
+    // Domain API configuration
+    const DOMAIN_API_URL = 'https://api.domain.com/v1/check';
+    const API_KEY = 'your_api_key_here';
+
+    // DOM elements
+    const domainSearchInput = document.getElementById('domain-search');
+    const searchButton = document.getElementById('search-button');
+    const searchText = document.getElementById('search-text');
+    const searchSpinner = document.getElementById('search-spinner');
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const domainResults = document.getElementById('domain-results');
+    const tldElements = document.querySelectorAll('.tld');
+
+    // Check if elements exist
+    if (!domainSearchInput || !searchButton || !searchText || !searchSpinner || 
+        !loadingIndicator || !domainResults || tldElements.length === 0) {
+        console.error('Missing required DOM elements');
+    }
+
+    // TLD prices in KES
+    const tldPrices = {
+        '.com': 1500,
+        '.net': 1700,
+        '.org': 1200,
+        '.dev': 1900,
+        '.io': 4800
+    };
+
+    // Format KES with commas
+    function formatKES(amount) {
+        return 'KES ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Event listeners
+    if (searchButton && domainSearchInput) {
+        searchButton.addEventListener('click', handleDomainSearch);
+        domainSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleDomainSearch();
+        });
+    }
+
+    if (tldElements.length > 0) {
+        tldElements.forEach(tld => {
+            tld.addEventListener('click', () => {
+                const extension = tld.getAttribute('data-tld');
+                if (extension) updateDomainInput(extension);
+            });
+        });
+    }
+
+    async function handleDomainSearch() {
+        if (!validateElements()) return;
+
+        const domainInput = domainSearchInput.value.trim();
+        if (!domainInput) {
+            showAlert('Please enter a domain name to search');
+            return;
+        }
+        
+        showLoadingState(true);
+        clearResults();
+        
+        try {
+            const { domainName, tldsToCheck } = parseDomainInput(domainInput);
+            const results = await checkDomainsAvailability(domainName, tldsToCheck);
+            displayDomainResults(results);
+        } catch (error) {
+            console.error('Search failed:', error);
+            showAlert('Failed to check domain availability. Please try again later.');
+        } finally {
+            showLoadingState(false);
+        }
+    }
+
+    function validateElements() {
+        return !!(domainSearchInput && loadingIndicator && searchText && 
+                 searchSpinner && domainResults);
+    }
+
+    function parseDomainInput(input) {
+        let domainName = input;
+        let tldsToCheck = [];
+        
+        if (input.includes('.')) {
+            const parts = input.split('.');
+            domainName = parts[0];
+            tldsToCheck = ['.' + parts[1]];
+        } else {
+            tldsToCheck = Object.keys(tldPrices);
+        }
+        
+        return { domainName, tldsToCheck };
+    }
+
+    async function checkDomainsAvailability(domainName, tlds) {
+        const results = [];
+        for (const tld of tlds) {
+            const fullDomain = domainName + tld;
+            const isAvailable = await checkDomainAvailability(fullDomain);
+            results.push({
+                domain: fullDomain,
+                available: isAvailable,
+                price: tldPrices[tld]
+            });
+        }
+        return results;
+    }
+
+    // Mock availability check
+    async function checkDomainAvailability(domain) {
+        await new Promise(resolve => setTimeout(resolve, 800));
+        return Math.random() > 0.5; // Replace with real API call
+    }
+
+    function displayDomainResults(results) {
+        domainResults.innerHTML = '';
+        
+        if (results.length === 0) {
+            domainResults.innerHTML = `
+                <div class="domain-result no-results">
+                    <span>No results found. Try a different domain name.</span>
+                </div>
+            `;
+            domainResults.style.display = 'block';
+            return;
+        }
+        
+        results.forEach(result => {
+            const resultElement = document.createElement('div');
+            resultElement.className = 'domain-result';
+            
+            if (result.available) {
+                resultElement.innerHTML = `
+                    <span class="domain-name">${result.domain}</span>
+                    <div class="domain-status">
+                        <span class="domain-available">Available</span>
+                        <span class="domain-price">${formatKES(result.price)}</span>
+                        <button class="add-to-cart" 
+                                data-domain="${result.domain}" 
+                                data-price="${result.price}">
+                            Add to Cart
+                        </button>
+                    </div>
+                `;
+            } else {
+                resultElement.innerHTML = `
+                    <span class="domain-name">${result.domain}</span>
+                    <span class="domain-unavailable">Taken</span>
+                `;
+            }
+            domainResults.appendChild(resultElement);
+        });
+        
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const domain = button.getAttribute('data-domain');
+                const price = button.getAttribute('data-price');
+                addDomainToCart(domain, price);
+            });
+        });
+        
+        domainResults.style.display = 'block';
+    }
+
+    function addDomainToCart(domain, price) {
+        console.log(`Adding ${domain} to cart at ${formatKES(price)}`);
+        showAlert(`Added ${domain} to cart for ${formatKES(price)}`);
+    }
+
+    function updateDomainInput(extension) {
+        let currentValue = domainSearchInput.value.trim();
+        const lastDotIndex = currentValue.lastIndexOf('.');
+        if (lastDotIndex > -1) {
+            currentValue = currentValue.substring(0, lastDotIndex);
+        }
+        domainSearchInput.value = currentValue + extension;
+        domainSearchInput.focus();
+    }
+
+    function showLoadingState(show) {
+        loadingIndicator.style.display = show ? 'block' : 'none';
+        searchText.style.display = show ? 'none' : 'inline';
+        searchSpinner.style.display = show ? 'inline-block' : 'none';
+        searchButton.disabled = show;
+    }
+
+    function clearResults() {
+        domainResults.style.display = 'none';
+        domainResults.innerHTML = '';
+    }
+
+    function showAlert(message) {
+        alert(message);
+    }
+
+    // Initialize
+    clearResults();
+</script>
+</body>
+</html>
