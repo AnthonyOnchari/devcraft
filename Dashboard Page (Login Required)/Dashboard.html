@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevCraft Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f5f6fa;
+        }
+        .dashboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .user-info {
+            margin: 30px auto;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        #signout-btn {
+            padding: 12px 25px;
+            background: #d63031;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #signout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome to DevCraft Dashboard</h1>
+        <div class="user-info" id="user-info">
+            Loading user data...
+        </div>
+        <button id="signout-btn">Sign Out</button>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Your Firebase config (MUST match your login page config)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDA7MWciYaB12AizympVc-UAaCRj-0I3UY",
+            authDomain: "devcraft-1.firebaseapp.com",
+            projectId: "devcraft-1",
+            storageBucket: "devcraft-1.appspot.com",
+            messagingSenderId: "730800879156",
+            appId: "1:730800879156:web:f4b7758acc920273dbbc61"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Display user info
+        auth.onAuthStateChanged((user) => {
+            const userInfo = document.getElementById('user-info');
+            
+            if (user) {
+                // User is signed in
+                userInfo.innerHTML = `
+                    <h2>Hello, ${user.displayName || 'User'}!</h2>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Account created:</strong> ${new Date(user.metadata.creationTime).toLocaleString()}</p>
+                    ${!user.emailVerified ? '<p style="color: #e67e22;">⚠️ Your email is not verified</p>' : ''}
+                `;
+            } else {
+                // No user signed in, redirect to login
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Sign out function
+        document.getElementById('signout-btn').addEventListener('click', () => {
+            auth.signOut()
+                .then(() => {
+                    console.log('User signed out successfully');
+                    window.location.href = 'register.html';
+                })
+                .catch((error) => {
+                    console.error('Sign out error:', error);
+                    alert('Error signing out: ' + error.message);
+                });
+        });
+    </script>
+</body>
+</html>
